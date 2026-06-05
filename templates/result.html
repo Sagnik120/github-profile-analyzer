@@ -1,25 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Analysis Result</title>
+    <title>GitHub Analysis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<h1>GitHub Profile Analysis</h1>
+    <h1>GitHub Profile Analysis</h1>
 
-<img src="{{ data.avatar }}" width="150">
+    <img src="{{ data.avatar }}" width="150">
 
-<h2>{{ data.name }}</h2>
+    <h2>{{ data.name }}</h2>
 
-<p>Username: {{ data.username }}</p>
-<p>Repositories: {{ data.public_repos }}</p>
-<p>Followers: {{ data.followers }}</p>
-<p>Following: {{ data.following }}</p>
-<p>Total Stars: {{ data.stars }}</p>
-<p>Most Used Language: {{ data.language }}</p>
+    <p><b>Username:</b> {{ data.username }}</p>
 
-<a href="/">Analyze Another Profile</a>
+    <p><b>Bio:</b> {{ data.bio }}</p>
+
+    <p><b>Account Created:</b> {{ data.created_at }}</p>
+
+    <p>
+        <b>Profile:</b>
+        <a href="{{ data.profile_url }}" target="_blank">
+            Visit GitHub
+        </a>
+    </p>
+
+    <p><b>Repositories:</b> {{ data.public_repos }}</p>
+
+    <p><b>Followers:</b> {{ data.followers }}</p>
+
+    <p><b>Following:</b> {{ data.following }}</p>
+
+    <p><b>Total Stars:</b> {{ data.stars }}</p>
+
+    <p><b>Most Used Language:</b> {{ data.language }}</p>
+
+    <h2>Top 5 Repositories</h2>
+
+    <ul>
+        {% for repo in data.top_repos %}
+        <li>
+            <a href="{{ repo.url }}" target="_blank">
+                {{ repo.name }}
+            </a>
+            ⭐ {{ repo.stars }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Language Usage</h2>
+
+    <img src="{{ url_for('static', filename='language_chart.png') }}"
+     width="500">
+
+    <br><br>
+
+    <a href="/">Analyze Another Profile</a>
 
 </body>
 </html>
